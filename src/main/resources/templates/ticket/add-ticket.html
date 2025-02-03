@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Add a New Ticket</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header>
+    <h1>Welcome to Simple E-Commerce</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/books">Books</a>
+        <a href="/magazines">Magazines</a>
+        <a href="/disc-mags">Disc Mags</a>
+        <a href="/tickets">Tickets</a>
+        <a href="/cart">Cart</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </nav>
+</header>
+<main>
+    <h1>Add a New Ticket</h1>
+    <form action="#" th:action="@{/tickets/add-ticket}" th:object="${ticket}" method="post">
+        <table border="1" cellpadding="5" cellspacing="0">
+            <tr>
+                <td>Price</td>
+                <td><input type="number" th:field="*{price}" step="0.01" required/></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td><input type="number" th:field="*{quantity}" required/></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="text" th:field="*{description}"/></td>
+            </tr>
+            <tr>
+                <td>Text</td>
+                <td><input type="text" th:field="*{text}" required/></td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" value="Submit"/>
+            <input type="reset" value="Reset"/>
+        </p>
+    </form>
+</main>
+</body>
+</html>

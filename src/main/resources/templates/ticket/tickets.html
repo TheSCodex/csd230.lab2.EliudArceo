@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple E-Commerce - Tickets</title>
+    <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+    <script th:inline="javascript">
+        var nameJs = /*[[${name}]]*/;
+    </script>
+    <script type="text/javascript" th:src="@{/js/action.js}"></script>
+</head>
+<body>
+<header>
+    <h1>Welcome to Simple E-Commerce</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/books">Books</a>
+        <a href="/magazines">Magazines</a>
+        <a href="/disc-mags">Disc Mags</a>
+        <a href="/tickets">Tickets</a>
+        <a href="/cart">Cart</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </nav>
+</header>
+
+<main>
+    <h2>Tickets</h2>
+    <button type="button" th:onclick="showName(nameJs);">Show Name</button>
+    <p><a href="#" th:href="@{/tickets/add-ticket}">Add new Ticket</a></p>
+    <div class="product-list">
+        <form th:action="@{/tickets/selection}" method="post" th:object="${ticketSelection}">
+            <table border="1" cellpadding="5" cellspacing="0">
+                <tr>
+                    <th>ID</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Text</th>
+                    <th>Edit</th>
+                    <th>Select</th>
+                </tr>
+                <tr th:each="ticket : ${tickets}">
+                    <td th:text="${ticket.id}"></td>
+                    <td th:text="${ticket.price}"></td>
+                    <td th:text="${ticket.quantity}"></td>
+                    <td th:text="${ticket.description}"></td>
+                    <td th:text="${ticket.text}"></td>
+                    <td><a th:href="@{/tickets/edit-ticket(id=${ticket.id})}">edit...</a></td>
+                    <td><input type="checkbox" th:value="${ticket.id}" name="selectedTickets"/></td>
+                </tr>
+            </table>
+            <button type="submit">Delete selected tickets...</button>
+        </form>
+        <form id="addToCartForm" th:action="@{/cart/cart/add}" method="post">
+            <input type="hidden" name="selectedItems" id="selectedItems" value="">
+            <input type="hidden" name="itemType" value="MAGAZINE">
+            <button type="submit">Add selected tickets to cart</button>
+        </form>
+        <p><a href="#" th:href="@{/tickets/add-ticket}">Add new ticket</a></p>
+    </div>
+</main>
+<footer>
+    <p>&copy; 2024 Simple E-Commerce. All rights reserved.</p>
+</footer>
+<script>
+    document.getElementById('addToCartForm').addEventListener('submit', function (event) {
+        var selectedTickets = [];
+        var checkboxes = document.querySelectorAll('input[name="selectedTickets"]:checked');
+        checkboxes.forEach(function (checkbox) {
+            selectedTickets.push(checkbox.value);
+        });
+        document.getElementById('selectedItems').value = selectedTickets.join(',');
+    });
+</script>
+</body>
+</html>

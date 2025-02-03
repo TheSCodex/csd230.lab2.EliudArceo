@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+<header>
+    <h1>Checkout</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/cart">Back to Cart</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Your Order</h2>
+    <div class="checkout">
+        <table>
+            <thead>
+            <tr>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cart.items}">
+                <td th:text="${item.description}">Description</td>
+                <td>$<span th:text="${item.price}">0.00</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <p>Total: $<span th:text="${total}">0.00</span></p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Simple E-Commerce. All rights reserved.</p>
+</footer>
+</body>
+</html>

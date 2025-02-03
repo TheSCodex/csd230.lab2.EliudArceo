@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Disc Magazines</title>
+    <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/action.js}"></script>
+</head>
+<body>
+<header>
+    <h1>Welcome to Simple E-Commerce</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/books">Books</a>
+        <a href="/magazines">Magazines</a>
+        <a href="/disc-mags">Disc Mags</a>
+        <a href="/tickets">Tickets</a>
+        <a href="/cart">Cart</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </nav>
+</header>
+
+<main>
+    <h2>Disc Magazines</h2>
+    <p><a href="#" th:href="@{/disc-mags/add-disc-mag}">Add new Disc Magazine</a></p>
+    <div class="product-list">
+        <form th:action="@{/disc-mags/selection}" method="post" th:object="${discMagSelection}">
+            <table border="1" cellpadding="5" cellspacing="0">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Has Disc</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Select</th>
+                </tr>
+                <tr th:each="discMag : ${discMags}">
+                    <td th:text="${discMag.id}"></td>
+                    <td th:text="${discMag.title}"></td>
+                    <td th:text="${discMag.hasDisc ? 'Yes' : 'No'}"></td>
+                    <td th:text="${discMag.price}"></td>
+                    <td th:text="${discMag.description}"></td>
+                    <td><a th:href="@{/disc-mags/edit-disc-mag(id=${discMag.id})}">edit...</a></td>
+                    <td><input type="checkbox" th:value="${discMag.id}" name="selectedDiscMags"/></td>
+                </tr>
+            </table>
+            <button type="submit">Delete selected disc magazines...</button>
+        </form>
+        <form id="addToCartForm" th:action="@{/cart/cart/add}" method="post">
+            <input type="hidden" name="selectedItems" id="selectedItems" value="">
+            <input type="hidden" name="itemType" value="DISCMAG">
+            <button type="submit">Add selected disc mags to cart</button>
+        </form>
+        <p><a href="#" th:href="@{/disc-mags/add-disc-mag}">Add new Disc Magazine</a></p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Simple E-Commerce. All rights reserved.</p>
+</footer>
+<script>
+    document.getElementById('addToCartForm').addEventListener('submit', function (event) {
+        var selectedDiscMags = [];
+        var checkboxes = document.querySelectorAll('input[name="selectedDiscMags"]:checked');
+        checkboxes.forEach(function (checkbox) {
+            selectedDiscMags.push(checkbox.value);
+        });
+        document.getElementById('selectedItems').value = selectedDiscMags.join(',');
+    });
+</script>
+</body>
+</html>
