@@ -10,11 +10,6 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<p>--------------------------------------------------------</p>
-<h2>credentials are configured in WebsecurityConfig.java</h2>
-<p style="font-size: 1.2em">username: user</p>
-<p style="font-size: 1.2em">password: password</p>
-<p>--------------------------------------------------------</p>
 <form th:action="@{/login}" method="post">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
