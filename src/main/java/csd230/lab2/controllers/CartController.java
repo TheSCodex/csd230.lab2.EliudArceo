@@ -80,19 +80,6 @@ public class CartController {
         return "redirect:/cart";
     }
 
-//    @GetMapping("/edit-cart")
-//    public String edit_cart(@RequestParam(value = "id", required = false) Integer id, Model model) {
-//        model.addAttribute("cart", cartRepository.findById(id));
-//        return "redirect:/cart";
-//    }
-//    @PostMapping("/edit-cart")
-//    public String edit_cartSubmit(@ModelAttribute CartEntity cart, Model model) {
-//        model.addAttribute("cart", cart);
-//        cartRepository.save(cart);
-//        model.addAttribute("carts", cartRepository.findAll());
-//        return "redirect:/cart";
-//    }
-
     @PostMapping("/selection")
     public String processSelection(@RequestParam("selectedCarts") List<Integer> selectedCartIds) {
         // Process the selected cart list here...

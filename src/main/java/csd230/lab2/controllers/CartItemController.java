@@ -37,13 +37,6 @@ public class CartItemController {
         return "redirect:/cart-item";
     }
 
-//    @GetMapping("/edit-cart-item")
-//    public String edit_cartItem(@RequestParam(value = "id", required = false) Integer id, Model model) {
-//        Optional<CartItem> cartItem = cartItemRepository.findById(id.longValue());
-//        model.addAttribute("cartItem", cartItem);
-//        return "cart-item/edit-cart-item";
-//    }
-
     @PostMapping("/remove-cart-item")
     public String remove_cartItem(@RequestParam(value = "id", required = false) Integer id, Model model) {
         cartItemRepository.deleteById(id.longValue());

@@ -18,4 +18,6 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
     // Custom query to search by title
     @Query("SELECT p FROM Publication p WHERE p.title LIKE %:text%")
     List<Publication> searchByTitle(@Param("text") String text);
+
+    Publication findById(long id);
 }
